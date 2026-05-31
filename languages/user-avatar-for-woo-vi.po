@@ -1,0 +1,79 @@
+# Copyright (C) 2025 Err
+# This file is distributed under the same license as the User Avatar for Woo package.
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: User Avatar for Woo 1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/user-avatar-for-"
+"woo\n"
+"POT-Creation-Date: 2026-03-17 13:00+0700\n"
+"PO-Revision-Date: 2026-04-15 23:23+0700\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.9\n"
+
+#: user-avatar-for-woo.php:5
+msgid ""
+"Allows users to upload their own profile picture on the WooCommerce My "
+"Account page."
+msgstr ""
+"Cho phép người dùng tải ảnh đại diện của riêng họ lên trang Tài khoản của "
+"tôi trên WooCommerce."
+
+#. translators: %s: Plugin name.
+#: user-avatar-for-woo.php:23
+msgid ""
+"The %s plugin requires WooCommerce to be installed and activated. Please "
+"install or activate WooCommerce."
+msgstr ""
+"Plugin %s yêu cầu WooCommerce phải được cài đặt và kích hoạt. Vui lòng cài "
+"đặt hoặc kích hoạt WooCommerce."
+
+#: user-avatar-for-woo.php:85
+msgid "Selected: "
+msgstr "Đã chọn: "
+
+#: user-avatar-for-woo.php:119
+msgid "Profile Picture"
+msgstr "Ảnh đại diện"
+
+#: user-avatar-for-woo.php:132
+msgid "Select photo"
+msgstr "Chọn ảnh"
+
+#: user-avatar-for-woo.php:135
+msgid "(Upload an image file: JPG, PNG, GIF. Maximum size: 1MB.)"
+msgstr "(Tải lên tệp hình ảnh: JPG, PNG, GIF. Kích thước tối đa: 1MB.)"
+
+#: user-avatar-for-woo.php:143
+msgid "Delete current profile picture."
+msgstr "Xóa ảnh đại diện hiện tại."
+
+#: user-avatar-for-woo.php:165
+msgid "Profile picture has been deleted."
+msgstr "Ảnh đại diện đã bị xóa."
+
+#. translators: %d: Maximum file size in megabytes.
+#: user-avatar-for-woo.php:175
+msgid "Error: Image file is too large. Please upload a file smaller than %dMB."
+msgstr ""
+"Lỗi: Tệp hình ảnh quá lớn. Vui lòng tải lên tệp có dung lượng nhỏ hơn %dMB."
+
+#: user-avatar-for-woo.php:192
+msgid ""
+"Error: Invalid file format. Please upload only JPG, PNG, or GIF image files."
+msgstr ""
+"Lỗi: Định dạng tệp không hợp lệ. Vui lòng chỉ tải lên các tệp hình ảnh định "
+"dạng JPG, PNG hoặc GIF."
+
+#: user-avatar-for-woo.php:207
+msgid "Profile picture updated successfully."
+msgstr "Ảnh đại diện đã được cập nhật thành công."
+
+#: user-avatar-for-woo.php:253 err-user-avatar-for-woo.php:256
+msgid "Donate"
+msgstr "Ủng hộ"

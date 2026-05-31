@@ -1,0 +1,65 @@
+# Copyright (C) 2025 Err
+# This file is distributed under the same license as the User Avatar for Woo package.
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: User Avatar for Woo 1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/user-avatar-for-woo\n"
+"POT-Creation-Date: 2026-03-17 13:00+0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.9\n"
+
+#: user-avatar-for-woo.php:5
+msgid "Allows users to upload their own profile picture on the WooCommerce My Account page."
+msgstr ""
+
+#. translators: %s: Plugin name.
+#: user-avatar-for-woo.php:23
+msgid "The %s plugin requires WooCommerce to be installed and activated. Please install or activate WooCommerce."
+msgstr ""
+
+#: user-avatar-for-woo.php:85
+msgid "Selected: "
+msgstr ""
+
+#: user-avatar-for-woo.php:119
+msgid "Profile Picture"
+msgstr ""
+
+#: user-avatar-for-woo.php:132
+msgid "Select photo"
+msgstr ""
+
+#: user-avatar-for-woo.php:135
+msgid "(Upload an image file: JPG, PNG, GIF. Maximum size: 1MB.)"
+msgstr ""
+
+#: user-avatar-for-woo.php:143
+msgid "Delete current profile picture."
+msgstr ""
+
+#: user-avatar-for-woo.php:165
+msgid "Profile picture has been deleted."
+msgstr ""
+
+#. translators: %d: Maximum file size in megabytes.
+#: user-avatar-for-woo.php:175
+msgid "Error: Image file is too large. Please upload a file smaller than %dMB."
+msgstr ""
+
+#: user-avatar-for-woo.php:192
+msgid "Error: Invalid file format. Please upload only JPG, PNG, or GIF image files."
+msgstr ""
+
+#: user-avatar-for-woo.php:207
+msgid "Profile picture updated successfully."
+msgstr ""
+
+#: user-avatar-for-woo.php:253 err-user-avatar-for-woo.php:256
+msgid "Donate"
+msgstr ""
