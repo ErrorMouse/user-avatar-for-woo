@@ -1,9 +1,9 @@
 === User Avatar for Woo ===
 Contributors:       nmtnguyen56
 Tags:               woocommerce, avatar, user avatar, customer avatar
+Stable tag:         1.0
 Requires at least:  5.2
 Tested up to:       7.0
-Stable tag:         1.0
 Requires PHP:       7.4
 Requires Plugins:   woocommerce
 License:            GPLv2 or later
@@ -65,12 +65,6 @@ To keep your Media Library clean, the old avatar file is **permanently deleted**
 = Is the plugin secure? =
 
 Yes. All actions are verified with WordPress nonces to prevent CSRF attacks. File uploads are validated by size and MIME type (only JPG, PNG, GIF are allowed) on the server-side, and the plugin uses WordPress's core functions for secure file handling.
-
-== Screenshots ==
-
-1.  The user experience after selecting a file, showing the chosen filename below the button.
-2.  The user experience after uploading a file.
-3.  The user experience after removing the current avatar.
 
 == Changelog ==
 

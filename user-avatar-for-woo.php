@@ -18,7 +18,15 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-
+// Plugin Update Checker
+require __DIR__ . '/vendor/plugin-update-checker/plugin-update-checker.php';
+use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
+$myUpdateChecker = PucFactory::buildUpdateChecker(
+	'https://raw.githubusercontent.com/ErrorMouse/user-avatar-for-woo/refs/heads/main/user-avatar-for-woo.json',
+	__FILE__,
+	'user-avatar-for-woo'
+);
+// End
 
 // REWRITTEN: Use a unique and longer prefix for all constants.
 define( 'ERRUAFW_VERSION', '1.0' );

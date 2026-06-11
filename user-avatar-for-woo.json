@@ -1,0 +1,9 @@
+{
+    "name": "User Avatar for Woo",
+    "version": "1.0",
+    "download_url": "https://github.com/ErrorMouse/user-avatar-for-woo/archive/refs/tags/1.0.zip",
+    "sections": {
+        "description": "Allow users to upload their own profile picture on the WooCommerce My Account page.",
+        "changelog": "Initial release."
+    }
+}
