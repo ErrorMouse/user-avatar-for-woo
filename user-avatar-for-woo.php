@@ -18,6 +18,8 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
+
+
 // REWRITTEN: Use a unique and longer prefix for all constants.
 define( 'ERRUAFW_VERSION', '1.0' );
 
@@ -170,7 +172,12 @@ function errplugin_user_avatar_for_woo_save( $user_id ) {
         $avatar_id_to_delete = (int) get_user_meta( $user_id, '_user_avatar', true );
         delete_user_meta( $user_id, '_user_avatar' );
         if ( $avatar_id_to_delete > 0 ) {
-            wp_delete_attachment( $avatar_id_to_delete, true );
+            // Security: Only delete the file if it was actually uploaded by this user.
+            // This prevents deleting the site logo or default avatars if an admin assigned them manually.
+            $old_avatar_post = get_post( $avatar_id_to_delete );
+            if ( $old_avatar_post && (int) $old_avatar_post->post_author === $user_id ) {
+                wp_delete_attachment( $avatar_id_to_delete, true );
+            }
         }
         wc_add_notice( __( 'Profile picture has been deleted.', 'user-avatar-for-woo' ), 'success' );
         return;
@@ -198,13 +205,16 @@ function errplugin_user_avatar_for_woo_save( $user_id ) {
         // --- FILE TYPE CHECK ---
         $allowed_mime_types = [ 'image/jpeg', 'image/png', 'image/gif' ];
         $file_tmp_name      = $uploaded_file['tmp_name'];
-        $file_info          = finfo_open( FILEINFO_MIME_TYPE );
-        $uploaded_mime_type = finfo_file( $file_info, $file_tmp_name );
-        finfo_close( $file_info );
+        
+        if ( function_exists( 'finfo_open' ) ) {
+            $file_info          = finfo_open( FILEINFO_MIME_TYPE );
+            $uploaded_mime_type = finfo_file( $file_info, $file_tmp_name );
+            finfo_close( $file_info );
 
-        if ( ! in_array( $uploaded_mime_type, $allowed_mime_types, true ) ) {
-            wc_add_notice( __( 'Error: Invalid file format. Please upload only JPG, PNG, or GIF image files.', 'user-avatar-for-woo' ), 'error' );
-            return;
+            if ( ! in_array( $uploaded_mime_type, $allowed_mime_types, true ) ) {
+                wc_add_notice( __( 'Error: Invalid file format. Please upload only JPG, PNG, or GIF image files.', 'user-avatar-for-woo' ), 'error' );
+                return;
+            }
         }
 
         // --- PROCESS UPLOAD ---
@@ -212,7 +222,8 @@ function errplugin_user_avatar_for_woo_save( $user_id ) {
         require_once ABSPATH . 'wp-admin/includes/file.php';
         require_once ABSPATH . 'wp-admin/includes/media.php';
 
-        $attachment_id = media_handle_upload( 'user_avatar', $user_id );
+        // Passed 0 as post_id to prevent attaching the image to a random post with the same ID as the user.
+        $attachment_id = media_handle_upload( 'user_avatar', 0 );
 
         if ( is_wp_error( $attachment_id ) ) {
             wc_add_notice( $attachment_id->get_error_message(), 'error' );
@@ -220,7 +231,11 @@ function errplugin_user_avatar_for_woo_save( $user_id ) {
             // Delete the old avatar if it exists and is not the same as the new one.
             $old_avatar_id = (int) get_user_meta( $user_id, '_user_avatar', true );
             if ( $old_avatar_id > 0 && $old_avatar_id !== $attachment_id ) {
-                wp_delete_attachment( $old_avatar_id, true );
+                // Security: Only delete the file if it was actually uploaded by this user.
+                $old_avatar_post = get_post( $old_avatar_id );
+                if ( $old_avatar_post && (int) $old_avatar_post->post_author === $user_id ) {
+                    wp_delete_attachment( $old_avatar_id, true );
+                }
             }
             update_user_meta( $user_id, '_user_avatar', $attachment_id );
             wc_add_notice( __( 'Profile picture updated successfully.', 'user-avatar-for-woo' ), 'success' );
