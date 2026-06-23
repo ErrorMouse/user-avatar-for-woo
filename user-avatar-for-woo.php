@@ -2,7 +2,7 @@
 /**
  * Plugin Name:         User Avatar for Woo
  * Description:         Allows users to upload their own profile picture on the WooCommerce My Account page.
- * Version:             1.0
+ * Version:             1.1
  * Requires at least:   5.2
  * Requires PHP:        7.4
  * Requires Plugins:    woocommerce
@@ -18,18 +18,66 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-// Plugin Update Checker
+// --- Dynamic Update Checker Mode ---
+$chout_uafw_update_mode = get_option( 'chout_uafw_update_mode', 'github' ); // Default to GitHub
+
+// Handle toggle
+add_action( 'admin_init', function() use ( $chout_uafw_update_mode ) {
+	if ( isset( $_GET['chout_uafw_toggle_update'] ) && current_user_can( 'manage_options' ) ) {
+		check_admin_referer( 'chout_uafw_toggle_update' );
+		$new_mode = ( $chout_uafw_update_mode === 'github' ) ? 'json' : 'github';
+		update_option( 'chout_uafw_update_mode', $new_mode, false );
+		wp_safe_redirect( admin_url( 'plugins.php' ) );
+		exit;
+	}
+});
+
 require __DIR__ . '/vendor/plugin-update-checker/plugin-update-checker.php';
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
-$myUpdateChecker = PucFactory::buildUpdateChecker(
-	'https://raw.githubusercontent.com/ErrorMouse/user-avatar-for-woo/refs/heads/main/user-avatar-for-woo.json',
-	__FILE__,
-	'user-avatar-for-woo'
-);
-// End
+
+if ( $chout_uafw_update_mode === 'github' ) {
+	$myUpdateChecker = PucFactory::buildUpdateChecker(
+		'https://github.com/ErrorMouse/user-avatar-for-woo/',
+		__FILE__,
+		'user-avatar-for-woo'
+	);
+	$myUpdateChecker->setBranch('main');
+} else {
+	$myUpdateChecker = PucFactory::buildUpdateChecker(
+		'https://raw.githubusercontent.com/ErrorMouse/user-avatar-for-woo/refs/heads/main/user-avatar-for-woo.json',
+		__FILE__,
+		'user-avatar-for-woo'
+	);
+}
+
+// Add toggle link to plugin row meta
+add_filter( 'plugin_row_meta', function( $links, $file ) use ( $chout_uafw_update_mode ) {
+	if ( plugin_basename( __FILE__ ) === $file ) {
+		$toggle_url = wp_nonce_url( admin_url( 'plugins.php?chout_uafw_toggle_update=1' ), 'chout_uafw_toggle_update' );
+		$checked    = ( $chout_uafw_update_mode === 'json' ) ? 'checked' : '';
+		
+		$toggle_html = '<style>
+		.caio-switch{position:relative;display:inline-block;width:32px;height:18px;vertical-align:middle;margin:0 5px 0 0;}
+		.caio-switch input{opacity:0;width:0;height:0;}
+		.caio-slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background-color:#ccc;transition:.3s;border-radius:18px;}
+		.caio-slider:before{position:absolute;content:"";height:14px;width:14px;left:2px;bottom:2px;background-color:white;transition:.3s;border-radius:50%;box-shadow:0 1px 2px rgba(0,0,0,0.2);}
+		.caio-switch input:checked+.caio-slider{background-color:#22c55e;}
+		.caio-switch input:checked+.caio-slider:before{transform:translateX(14px);}
+		</style>
+		<label class="caio-switch" title="' . esc_attr__( 'Enable to update via static JSON (prevents API 403 errors). Disable to update via GitHub API.', 'chout-all-in-one' ) . '">
+			<input type="checkbox" onchange="window.location.href=\'' . esc_js( $toggle_url ) . '\'" ' . $checked . '>
+			<span class="caio-slider"></span>
+		</label>
+		<span style="vertical-align:middle;color:#0073aa;font-weight:500;">' . esc_html__( 'Update via JSON', 'chout-all-in-one' ) . '</span>';
+		
+		$links[] = $toggle_html;
+	}
+	return $links;
+}, 10, 2 );
+// --- End Update Checker ---
 
 // REWRITTEN: Use a unique and longer prefix for all constants.
-define( 'ERRUAFW_VERSION', '1.0' );
+define( 'ERRUAFW_VERSION', '1.1' );
 
 add_action( 'plugins_loaded', 'errplugin_user_avatar_for_woo_check_dependencies' );
 function errplugin_user_avatar_for_woo_check_dependencies() {
@@ -309,7 +357,7 @@ function errplugin_user_avatar_for_woo_admin_settings_scripts($hook_suffix) {
 }
 
 function erruafw_donate_link_html() {
-	$donate_url = 'https://err-mouse.id.vn/donate';
+	$donate_url = 'https://chout.id.vn/donate';
 	printf(
 		'<a href="%1$s" target="_blank" rel="noopener noreferrer" class="err-donate-link" aria-label="%2$s"><span>%3$s 🚀</span></a>',
 		esc_url( $donate_url ),

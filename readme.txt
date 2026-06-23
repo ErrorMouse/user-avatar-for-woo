@@ -1,7 +1,7 @@
 === User Avatar for Woo ===
 Contributors:       nmtnguyen56
 Tags:               woocommerce, avatar, user avatar, customer avatar
-Stable tag:         1.0
+Stable tag:         1.1
 Requires at least:  5.2
 Tested up to:       7.0
 Requires PHP:       7.4
