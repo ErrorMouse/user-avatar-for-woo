@@ -366,7 +366,7 @@ function erruafw_donate_link_html() {
 	);
 }
 
-add_filter( 'plugin_row_meta', 'erruafw_row_meta', 10, 2 );
+add_filter( 'plugin_row_meta', 'erruafw_row_meta', 9, 2 );
 function erruafw_row_meta( $links, $file ) {
 	if ( plugin_basename( __FILE__ ) === $file ) {
 		ob_start();
